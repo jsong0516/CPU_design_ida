@@ -1,0 +1,23 @@
+v2.0 raw
+0: 6f300000 # COPY %a0 0
+1: 6f4003e8 # COPY %a1 1000
+2: ef000004 # CALL @SORT -> LINK ?CQ @R -> HALT, 4
+3: ff000005 #            -> JUMP ?CQ 5
+4: ff000004 # HALT 
+5: 6f700000 # COPY %t1 0
+6: 6f800001 # COPY %t2 1
+7: de800004 # CMPU %t2 %a1
+8: fb000013 # JUMP ?GE @end -> 
+9: 9f980001 # SUB %t3 %t2 1
+10: aea30009 # LOAD %t4 %a0 %t3 # A[i-1] 
+11: aeb30008 # LOAD %t5 %a0 %t2 # A[i]
+12: dea0000b # CMPU %t4 %t5
+13: f3000011 # JUMP ?LE @end_if
+14: bea30008 # SAVE %t4 %a0 %t2
+15: beb30009 # SAVE %t5 %a0 %t3
+16: 6f700001 # COPY %t1 1
+17: 8f880001 # ADD %t2 %t2 1
+18: ff000007 # JUMP 7
+19: ce700000 # CMPS %t1 %zero
+20: f7000005 # JUMP ?NE @do
+21: fe000002 # JUMP %ra

@@ -1,0 +1,28 @@
+PROJECT 4 WRITE-UP
+------------------
+
+1) Briefly explain how you implemented comparison queries and how they affected your control block's signals (in a few sentences).
+
+ANSWER: 
+%cr is initially has 0 value and when we use CMPU instruction, ALU compute the value and "cmp" control blocks indicates it should be stored in %cr register.
+In ALU, we use 6 bits and each bit indicates whehter two values being compared less than or greater than, etc. And this value will be stored in %cr.
+Once it is saved to %cr, for every next insturction, we compare the ?CQ of the instruction and %cr and execute(turn on the controls) only when ?CQ is satisfied based on %cr. We used spliter to compare the bit.
+
+2) Please list your control block's control signals, and briefly explain what each one does (in a sentence or less each).
+
+ANSWER: 
+immi? - This control indicates whether it treat lower bits as register index or immidiate value.
+memReads? - This control indicates whether we read data from memory
+memWrite? - This control indicates whether we write data to memory
+cmp - This control indicates whether we compared the value and need to store the result to %cr register
+regWrite - This control indicates whether we write the value to register
+jump? - This control indicates we do jump or not.
+
+3) What features (if any) of this assembly language do you like?
+
+ANSWER: The comparison query makes the code more readable and makes reader know whether the instruction will be executed or not. Also, keyword is more understandable, (e.g. "COPY" or "SAVE"). Also, it can have more than 16 bit immediate. The best thing is address is 24 bits based instead 32 bits and we can have an instruction where 
+
+4) What features (if any) of this assembly language do you not like?
+
+ANSWER: We will have limited number of insturction. We have only 24 bits to indicate to address which means it will have limited number of data and instruction compare to 32 bits addressing system. Also, we have too many "unused" bits for non-immediate value instruction. For an example, A3 type, 12 bits we don't use if it is not a immediate.
+

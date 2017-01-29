@@ -1,0 +1,36 @@
+        COPY %a0 0    # pointer to the 1st element
+        COPY %a1 10 # number of elements to sort
+        CALL @SORT  
+        HALT
+
+SORT:  	# let t1 is swapped
+do:		COPY %t1 0
+
+		COPY %t2 1
+		for:	# for statement
+				CMPU %t2 %a1
+				JUMP ?GE @end
+
+				SUB %t3 %t2 1
+				LOAD %t4 %a0 %t3 # A[i-1] 
+				LOAD %t5 %a0 %t2 # A[i]
+
+				CMPU %t4 %t5
+				JUMP ?LE @end_if
+				### IF CLAUSE
+				SAVE %t4 %a0 %t2
+				SAVE %t5 %a0 %t3
+				COPY %t1 1
+				###
+				end_if:
+
+				ADD %t2 %t2 1
+				JUMP @for
+		end:
+
+		CMPS %t1 %zero
+		JUMP ?NE @do
+		JUMP %ra
+
+
+
